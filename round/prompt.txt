@@ -1,0 +1,133 @@
+"D:\CodingPrograms\Protein Design\AGENTS.md"只读
+
+"D:\CodingPrograms\Protein Design\round"作为工作目录
+其他目录无关不要看
+"D:\CodingPrograms\Protein Design\round\round_"历史遗留也不要看
+1.构建cmake项目环境
+2.根目录cmakelist作为该工作目录主cmake负责所有的编译指向cmakelist和编译产物迁移
+每个分项目在各自文件夹有各自的cmakelist用于项目的编译
+
+规范完毕
+
+完成第一个部分
+1."D:\CodingPrograms\Protein Design\round\src\date"
+构筑第一个cmakelist,开始第一个项目
+2.生成pbd处理程序
+3.预期编译产物exe运行读取
+读取同目录pbd_config.json
+4.json规范
+{
+    "PBD_PATH" : "D:\\Huggingface\\databace\\random_pbd",
+    "BIN_PATH" : "D:\CodingPrograms\Protein Design\round\datebase\round_bin"
+    "NUM" : "5",
+}
+
+"PBD_PATH"是pbd文件夹
+"BIN_PATH" 是输出文件夹
+"NUM"是线程数量
+5.预期产出
+一个台账,用于记录当前文件夹产出文件夹已经处理的pbd的id
+多个文件只要提取20个标准氨基酸序列的,氨基酸标签,cos,sin的二面角
+只要包含20位标准氨基酸的,遇到非标准和变形截断
+
+还要包含一个台账用于交叉索引这些标准片段来自什么id的pbd
+
+
+"D:\CodingPrograms\Protein Design\round\src\process_Statistics"
+
+构建另外cmakelsit
+
+1.预期编译产物exe运行读取
+读取同目录_config.json
+{
+    "BIN_PATH" : "D:\CodingPrograms\Protein Design\round\datebase\round_bin"
+"RESULT_PATH" : "D:\CodingPrograms\Protein Design\round\result\static"
+}
+
+"D:\CodingPrograms\Protein Design\round\datebase\round_bin"
+数据源
+"D:\CodingPrograms\Protein Design\round\result\static"
+输出目录
+
+2.
+预期完成相邻预期概统生成以下20*20*20张72*72的离散二面角概率分布方阵
+P(φ(i),ψ(i)|m_i-1,m_i,m_i+1)=R^(72*72)
+纯概率统计最后归一
+
+另外生成测试工具
+检测pyuv托管的工具链条,环面上的周期核卷积平滑后,绘制立体直方图
+
+最后只抽样随机绘制500张到
+"D:\CodingPrograms\Protein Design\round\result\static\img"
+
+
+
+
+
+
+"D:\CodingPrograms\Protein Design\round\src\von_Statistics"
+
+构建另外cmakelsit
+
+D:\CodingPrograms\Protein Design\lib\paper\16\05_Lennox2009_BivariateVonMises_DPMM.pdf
+D:\CodingPrograms\Protein Design\lib\paper\15\01_BivariateVonMises_蛋白二面角分布混合_2016_arXiv1607.01312.pdf
+D:\CodingPrograms\Protein Design\lib\paper\15\02_DPMM_HMM_蛋白扭转角多位置建模_2010_arXiv1011.2065.pdf
+
+
+"D:\CodingPrograms\Protein Design\round\先验多峰高斯.md"
+"D:\CodingPrograms\Protein Design\round\自适应核采样.md"
+
+尝试使用CUDA工具链,获得P(φ(i),ψ(i)|m_i-1,m_i,m_i+1)单个氨基酸二面角与相邻氨基酸的潜在概率统计规律
+
+"D:\CodingPrograms\Protein Design\round\result\von"结果
+"D:\CodingPrograms\Protein Design\round\src\von_Statistics"源码
+
+
+1.阅读相关.md,试理解先验不断采样获得多峰高斯
+2.实际,先数据预处理,把一定阈值的噪声单峰去掉,再归一,预期得到更为常见的经验分布
+3.试着评估如何更好拟合异形形状
+
+纯文字评估
+
+现考虑基底
+期望,更好的拟合基底,合理分配峰:
+1.寻找非vm的方法,更好拟合基底,符合循环
+2.判断只采用不考虑相邻的经验直方图,采用边界效应近似可行性
+对于标签m_i-1 - m_i - m_i+1,只以中间氨基酸为参照
+通过20*20标签对,统计是否峰存在高度重合?基底拟合-峰权重,不考虑整峰形状,只保留往峰的趋势
+不同组合就是在原基底的基础上,对峰权重进行变化,这样就可以只训练20组,分配20*20权重
+
+"D:\CodingPrograms\Protein Design\round\result\peak"用于存放最后20组峰可可能潜在的异类标签
+"D:\CodingPrograms\Protein Design\round\result\static\img_all"拷贝异类的图像不要重复作图
+
+相邻氨基酸对二面角分布特征经验直方图可得峰明显，基底复杂不适合用高斯椭圆拟合，存在离群离散特殊情况，存在多峰报团，卷积平滑后是少峰高原同一个氨基酸存在向量不同时候，峰会下降形成类似高原结构所以二面角规律与相邻氨基酸有关离群罕见通常为蛋白质维护的特殊活性构象，这里忽略近似只考虑标准氨基酸，二面角规律代替位阻判断故舍弃离群点期望得到的分布平滑，圆周循环，取阈值为禁区经验统计出为0的地方不为0，尽可能拟合阈值处基底形状，包含峰，然后尽量处处可导，给出预期处理获得分布的方案纯文字
+
+
+ok
+1.对经验分布做卷积平滑,"D:\CodingPrograms\Protein Design\round\result\ground"结果存储
+(1)去除离群噪声
+(2)平滑
+2.组合"D:\CodingPrograms\Protein Design\round\result\fin",放置权重
+并且附带.cpp,.pyp(φ,ψ | a,b,c)函数例
+
+3.可视化评估
+对于抽样500组函数拟合函数图和原经验分布叠加D:\CodingPrograms\Protein Design\round\result\fin\imgs
+
+4.整理思路
+"D:\CodingPrograms\Protein Design\round\相邻氨基酸对二面角分布影响.txt"改写为.md修改标题
+
+"D:\CodingPrograms\Protein Design\round_\src_analyze"作为工作文件夹
+
+"D:\CodingPrograms\Protein Design\round_\result_thr"接管结果
+
+"D:\CodingPrograms\Protein Design\round_\result_thr\analyze"做结果信息存放地
+
+1.
+von统计平均峰数量
+2.
+分别随机抽样和离散取样von经验直方图方阵500张,取较小值,梯度递增,用来做是否存在离峰的噪声
+3.
+"D:\CodingPrograms\Protein Design\round_\result_thr\analyze\img"
+随机取样生成离散取样von经验直方图方阵的图像
+使用opencv做连通域检测,边缘检测
+最后von模型参数得到峰尖,对连通域和峰间判圆

@@ -1,0 +1,147 @@
+# ============================================================
+# Protein Design —— 仓库根 .gitignore
+#
+# 策略：
+#   - 源码 / 文档入库
+#   - 结果目录（round/result/）与图片一律不入库
+#   - 数据集不入库（已上传 Hugging Face，仓库只留代码）
+#   - 环境 / 构建 / 日志 / 缓存不入库
+#   - /py_train/ 还没开始，整目录忽略
+#
+# 禁止全局写 *.pdb：本项目的 .pdb 是蛋白质结构文件，不是调试符号。
+# ============================================================
+
+# ---------------------------------------------------------- 1. 系统 / 编辑器
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+._*
+*.lnk
+.vscode/
+.idea/
+.vs/
+*.code-workspace
+*.suo
+*.user
+*.userosscache
+*.swp
+*.swo
+
+# ---------------------------------------------------------- 2. Python / uv
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.Python
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.egg-info/
+.eggs/
+.wheelhouse/
+.uv/
+uv-cache/
+
+# ---------------------------------------------------------- 3. C/C++ / CMake / MSVC
+build/
+CMakeCache.txt
+CMakeFiles/
+CMakeScratch/
+cmake_install.cmake
+CMakeUserPresets.json
+generate.stamp*
+TargetDirectories.txt
+InstallScripts.json
+pkgRedirects/
+ZERO_CHECK.*
+ALL_BUILD.*
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.slnx
+*.tlog
+*.lastbuildstate
+*.recipe
+*.obj
+*.o
+*.lib
+*.a
+*.exp
+*.ilk
+*.iobj
+*.ipdb
+*.res
+*.manifest
+x64/
+Win32/
+Debug/
+Release/
+RelWithDebInfo/
+MinSizeRel/
+
+# ---------------------------------------------------------- 4. .NET
+bin/
+obj/
+*.deps.json
+*.runtimeconfig.json
+/imgs/
+/round/result/
+
+# ---------------------------------------------------------- 5. 构建 / 发布产物
+/round/bin/
+/round/build/
+/round/datebase/
+/tool/result/
+*.exe
+*.dll
+*.pyd
+
+# ---------------------------------------------------------- 6. 缓存 / 临时 / 压缩包
+.dsh-acl-recovery/
+.cache/
+hf_cache/
+*.part
+*.tmp
+*.temp
+*.log
+*.bak
+*.orig
+*.rej
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+
+# ---------------------------------------------------------- 7. 数据集（已上传 Hugging Face）
+# DPMM 的 36x36 .bin、v2 的 segments.jsonl、processed.jsonl 全部不进仓库。
+/round/datebase/
+# crawler 下载的 PDB 样本
+/tool/src/csharp_crawler/data/
+
+# ---------------------------------------------------------- 8. 结果目录
+# round/result/ 整体不入库（图片、npy、bin、README 全都不进），
+# 具体由第 4 节的 /round/result/ 覆盖。
+
+# ---------------------------------------------------------- 10. 明确不要的旧文件
+/AGENTS.md.bak-before-unitypath
+/round/result/static/neighbor_analysis_stdout.txt
+
+# ---------------------------------------------------------- 11. 训练工程（还没开始）
+/py_train/
+AGENTS.md
+# ============================================================
+# 结果目录与图片全部不入库；结果数据放 HF / 本地。
+# ============================================================

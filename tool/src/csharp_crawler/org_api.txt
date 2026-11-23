@@ -1,0 +1,6 @@
+端点	方法	实测	用途
+data.rcsb.org/rest/v1/holdings/current/entry_ids	GET	200，1,829,108 字节，261,301 个 ID，全部 4 字符、无重复，耗时 4.2s	一次性拿全量 ID 池
+search.rcsb.org/rcsbsearch/v2/query	POST JSON	200，返回 total_count + result_set[{identifier,score}]	带条件筛选（只 X-ray、只蛋白、某分辨率以上…），支持 return_all_hits
+files.rcsb.org/download/{ID}.pdb	GET	200，4HHB = 473,850 B / 901ms	下结构文件
+files.rcsb.org/download/{ID}.pdb.gz	GET	200，application/gzip，4HHB = 107,473 B（省 77%）	建议默认走这个
+www.rcsb.org/	GET	200，83 KB HTML，React SPA	只是壳，没有爬 DOM 的必要

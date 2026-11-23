@@ -1,0 +1,74 @@
+生成cpp
+
+变量参数显式表示,均用字符串,但是实际程序采用哈希到UT64采用统一哈希码来表示
+
+/config.json
+#作为显式配置参数,放在编译产物同目录,被主程序读取作为配置输入
+{
+    "PBD_PATH" : "D:\\Huggingface\\databace\\random_pbd",
+    "BIN_PATH" : "D:\\Huggingface\\databace\\random_pbd\\bin",
+    "NUM" : "5"
+    "OUTPUT" : "SimgleAnle"
+}
+
+/reader.cpp
+//.pbd(.gz)解析器
+class SimgleAnle_maker
+{
+Void Init(){
+    (接收一个"BIN_PATH")
+}
+void Work()
+{(只接收单个.pbd或者.pbd.gz路径)
+(根据文件类型解读,缓存内容到 pbd_pool)
+(读取氨基酸序列按照strcut List缓结果到bin_pool)
+(最终结果保存到BIN_PATH,保留相同文件名称,.bin后缀)
+}
+}
+
+
+//内存pbd内存缓存池
+class pbd_pool
+{
+    ()
+}
+
+//内存二进制结果内存缓存池
+class bin_pool
+{
+    ()
+}
+
+//二进制结果的储存结构
+//设包含N个氨基酸的序列
+strcut List
+{
+    int _len;#实际载荷部分字长
+
+    char _kind;#仅存20个标准氨基酸+一位统一表示作为不标准氨基酸
+
+    float32 ca;#起始点端和末尾端的二面角参数默认为0
+    float32 sa;
+    float32 cb;
+    float32 sb;#存二面角,sin与cos交替存保存精度更大
+
+    ... char与4float32交替储存
+}
+
+
+int Mian(){
+
+    (读取根目录config.json参数)
+    ("OUTPUT"分流
+    如果是"SimgleAnle"
+        就按照NUM数量newSimgleAnle_maker
+    
+    每一个处理的maker独享一个线程)
+
+    (开始遍历目录"PBD_PATH",把单个文件路径传给maker
+    )
+
+    (过程打开控制台显示进程
+    记得UT8输出)
+    (确保完成之后释放内存)
+}

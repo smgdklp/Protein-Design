@@ -1,0 +1,11 @@
+{
+    "ID_PATH" : "D:\\CodingPrograms\\Protein Design\\csharp_crawler\resource\\ID.txt",
+    "PBD_API" : 
+    {
+        "API_HEAD":"files.rcsb.org/download/",
+        "API_END":".pdb.gz"
+    },
+    "ID_NUM" : "20",
+    "CRAWLER_NUM" : "3",
+    "SAVEPATH" : "D:\\Huggingface\\databace\\random_pbd"
+    }

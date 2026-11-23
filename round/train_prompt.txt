@@ -1,0 +1,37 @@
+仅阅读"D:\CodingPrograms\Protein Design\AGENTS.md"
+数据源工程文件夹参考"D:\CodingPrograms\Protein Design\cpp_round"
+
+数学层面实现概要"D:\CodingPrograms\Protein Design\cpp_round\高斯.md""D:\CodingPrograms\Protein Design\cpp_round\高斯.md"
+
+论文原文
+D:\CodingPrograms\Protein Design\lib\paper\16\05_Lennox2009_BivariateVonMises_DPMM.pdf
+D:\CodingPrograms\Protein Design\lib\paper\15\01_BivariateVonMises_蛋白二面角分布混合_2016_arXiv1607.01312.pdf
+D:\CodingPrograms\Protein Design\lib\paper\15\02_DPMM_HMM_蛋白扭转角多位置建模_2010_arXiv1011.2065.pdf
+
+预期概统生成以下20*20*20张36*36的离散二面角概率分布方阵
+P(φ(i),ψ(i)|m_i-1,m_i,m_i+1)=R^(36*36)
+先评估可行性,再纯文字表述你的完成思路,什么都不要做
+
+尝试使用CUDA工具链,获得P(φ(i),ψ(i)|m_i-1,m_i,m_i+1)单个氨基酸二面角与相邻氨基酸的潜在概率统计规律
+
+"H:\DATABACE\src"
+源码放这里
+
+"H:\DATABACE\thr_result\von"
+尝试对源数据进行双变量高斯采样
+最后参数整理放这里,采用txt-UT8存储结果,附带md进行参数说明
+
+"H:\DATABACE\thr_result\von_box"
+尝试对H:\DATABACE\thr_result\von进行离散采样获得方阵
+结果采用bin存储,附带md二进制结构说明
+
+"H:\DATABACE\thr_result\staic_box"
+直接采用概率统计最后归一化得到离散方阵概率
+
+"H:\DATABACE\thr_result\img"
+采用py工具链随机分别画出5张概率分布图,离散图采用插值变成连续空间图
+
+
+再次评估,纯文本描述你将怎么完成这三个和最后汇总,什么都不做
+
+

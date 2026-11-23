@@ -1,0 +1,38 @@
+{
+    "BIN_DIR" : "..\\..\\datebase\\date_init",
+    "MANIFEST": "..\\..\\datebase\\date_init\\manifest.tsv",
+    "OUT_ROOT": "..\\..\\result",
+
+    "BINS": 36,
+    "SEED": 20240601,
+
+    "TIER_A_N": 2000,
+    "TIER_B_N": 200,
+
+    "A_ITERS": 6000,
+    "A_BURN": 1000,
+    "A_THIN": 10,
+    "A_CHAINS": 2,
+
+    "B_ITERS": 4000,
+    "B_BURN": 1000,
+    "B_THIN": 5,
+    "B_CHAINS": 1,
+
+    "C_ITERS": 500,
+    "C_BURN": 100,
+    "C_THIN": 5,
+    "C_CHAINS": 1,
+
+    "TAU0": 1.0,
+    "K10": 0.10132118,
+    "K20": 0.10132118,
+    "LAM0": 0.0,
+
+    "WISHART_NU0": 2,
+    "WISHART_B0": 0.25,
+
+    "K_AUX": 3,
+    "K_MAX_COMP": 8,
+    "M_SAMPLES": 50000
+}

@@ -1,0 +1,52 @@
+生成简单爬虫类
+
+crawler.cs
+
+public class Crawler
+{
+    (任意实现)
+    Init(){
+        获得Config索引
+        完成无头浏览器初始化
+    }
+
+    GetOne(string ID){
+        拼API_HEAD+string ID+API_END
+        下载到SAVEPATH
+    }
+    
+}
+
+public interfce ICrawler
+{
+    public void Init()
+    public void GetOne(string ID)
+}
+
+
+
+main.cs
+public struct Config
+{
+    (dict<ut64,string>对象)
+}
+
+public class Main{
+
+    public Main{
+        #1.解析当前目录config.json
+
+        #2.new Config,赋值,把config.json的键哈希化,转ut64哈希码,全文统一采用键字符串哈希码来指向唯一哈希值做索引
+
+        #3.根据CRAWLER_NUM,new 多线程Crawler,注入参数完成初始化
+
+        #4.ID_PATH随机读取获取ID_NUM个id然后注入Crawler.GetOne
+
+        #5.完成下载,释放内存
+    }
+}
+
+
+1.最终编译要开控制台prinf进度
+2.记得控制台输出UT8
+3.按照以上接口约束实现,具体实现随意
