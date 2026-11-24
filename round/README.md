@@ -1,5 +1,5 @@
 ---
-license: cc0-1.0
+license: apache-2.0
 pretty_name: Protein Backbone Dihedral Angles (PDB subset, phi/psi)
 tags:
 - protein
@@ -13,7 +13,23 @@ size_categories:
 - 1M<n<10M
 ---
 
-# 蛋白质主链二面角数据集（PDB 派生）
+# 蛋白质主链二面角数据集
+
+## 说明
+
+训练初期没做好程序管理,使得不能从源码编译快速重复获得数据
+故把数据上传至魔塔平台
+
+> **数据集声明**
+>
+> - 平台：ModelScope（公开）
+> - 地址：<https://modelscope.cn/datasets/Smgdklp/protein-dihedral-dist-adjacent-aa>
+> - ID：`Smgdklp/protein-dihedral-dist-adjacent-aa`
+> - 中文名：**氨基酸二面角分布与相邻氨基酸关系**
+> - 许可：Apache License 2.0（ModelScope 页面标注；原始 PDB 数据为 CC0）
+> - 版本：v1 / 2026-11-24
+>
+> 本文件是代码仓库内的数据集声明；线上 README 以 ModelScope 页面为准。
 
 从 RCSB PDB 随机抽取的 **9,349 个结构**中，提取连续、主链完整、由标准氨基酸组成的片段，
 保存每个残基的 **φ / ψ 二面角 cos/sin**。面向的任务是学习
@@ -34,6 +50,27 @@ p(φ_i, ψ_i | m_{i-1}, m_i, m_{i+1})
 | 残基数 | 7,640,882 | 8,408,870 |
 | 有效样本（n−2） | 7,545,294 | 8,277,496 |
 | 体积 | 约 293 MB | 约 139.5 MB |
+
+## ModelScope 仓库结构
+
+线上仓库是“扁平”的：`round/datebase` 与 `round/result` 的内容直接放在仓库根目录，
+不再保留 `datebase/`、`result/` 这两层包装。
+
+| 线上目录 | 本地来源 | 内容 |
+|---|---|---|
+| `date_init/` | `round/datebase/date_init/` | 5 个 36×36 容器 `.bin` + `manifest.tsv` + `_done.txt` |
+| `round_bin/` | `round/datebase/round_bin/` | `segments.jsonl`、`processed.jsonl`（9,349 个 PDB 台账） |
+| `static/` | `round/result/static/` | 8000×72×72 经验直方图 `triplet_probs.npy` + 分析 txt |
+| `peak_ground/` | `round/result/peak_ground/` | `ground/`（基底/残差）+ `peak/`（峰字典）+ `fin/`（拟合） |
+| `final_version/` | `round/result/final_version/` | 连续核密度模型 v2：`probs.npy`、`forbidden.npy`、`peaks.jsonl` |
+| `von/` | `round/result/von/` | DPMM 参数化模型（36×36） |
+| `von_box/` | `round/result/von_box/` | von 参数模型的 MC 采样方阵 |
+| `staic_box/` | `round/result/staic_box/` | 纯经验 36×36 方阵 |
+| `README.md` | — | 线上说明（当前为 `round/result/README.md` 的内容） |
+| `.gitattributes` | — | LFS 规则 |
+
+图片类文件（`img_all/`、`imgs/`、`compare/`、`base_sheets/`、`chk_*.png`）不参与
+代码仓库提交；线上仓库是否包含，以 ModelScope 文件树为准。
 
 ## 文件结构
 
@@ -185,7 +222,7 @@ with open("datebase/date_init/manifest.tsv", encoding="utf-8") as f:
 ## 许可与来源
 
 - 原始结构来自 [RCSB PDB](https://www.rcsb.org/)，数据许可 **CC0**；
-- 本数据集是对 PDB 的派生提取，同样以 **CC0** 发布；
+- 本数据集在 ModelScope 页面上标注为 **Apache License 2.0**（派生提取部分按此发布）；
 - 不提供任何正确性担保，使用前请自行核对几何与符号约定。
 
 ## 版本

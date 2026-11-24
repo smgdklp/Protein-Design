@@ -124,6 +124,7 @@ hf_cache/
 *.tar.gz
 *.tgz
 *.rar
+/lib/
 
 # ---------------------------------------------------------- 7. 数据集（已上传 Hugging Face）
 # DPMM 的 36x36 .bin、v2 的 segments.jsonl、processed.jsonl 全部不进仓库。
